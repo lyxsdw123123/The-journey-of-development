@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>开发之旅 · The Journey of Development</title>
+<meta name="description" content="从 Python 到 GeoAI 工程师，一条完整的后端 + AI + GIS 学习路线。">
+<style>
+  :root {
+    --bg: #0b1020;
+    --bg-2: #101830;
+    --card: #151d38;
+    --text: #e8ecf6;
+    --muted: #9aa5c4;
+    --accent: #38d9c8;
+    --accent-2: #6c8cff;
+    --accent-3: #b07cff;
+    --line: #263050;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+  a { color: var(--accent); text-decoration: none; }
+
+  .grad-text {
+    background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent-3));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* 导航 */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 28px;
+    background: rgba(11,16,32,.82);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .logo { font-weight: 700; font-size: 18px; letter-spacing: 1px; }
+  .logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 20px; }
+  .nav-links a { color: var(--muted); font-size: 14px; }
+  .nav-links a:hover { color: var(--text); }
+
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 72px 0; }
+
+  /* Hero */
+  .hero { text-align: center; padding: 96px 24px 80px; }
+  .hero .badge {
+    display: inline-block; padding: 6px 16px; margin-bottom: 22px;
+    border: 1px solid var(--line); border-radius: 999px;
+    color: var(--accent); font-size: 13px;
+  }
+  .hero h1 { font-size: clamp(34px, 6vw, 62px); font-weight: 800; letter-spacing: 1px; }
+  .hero .q {
+    font-size: clamp(18px, 3vw, 26px); color: var(--muted);
+    margin-top: 26px; font-weight: 500;
+  }
+  .hero .q em { color: var(--accent); font-style: normal; }
+  .hero .cta { margin-top: 36px; }
+  .btn {
+    display: inline-block; padding: 13px 30px; border-radius: 999px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    color: #061018; font-weight: 700; font-size: 16px;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(56,217,200,.35); }
+
+  /* 区块标题 */
+  .sec-title { text-align: center; margin-bottom: 44px; }
+  .sec-title .kicker { color: var(--accent); font-size: 13px; letter-spacing: 3px; text-transform: uppercase; }
+  .sec-title h2 { font-size: clamp(26px, 4vw, 40px); font-weight: 800; margin-top: 8px; }
+  .sec-title .sub { color: var(--muted); margin-top: 12px; }
+
+  /* 路线图 */
+  .roadmap { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+    padding: 22px; transition: border-color .2s ease, transform .2s ease;
+  }
+  .card:hover { border-color: var(--accent); transform: translateY(-3px); }
+  .card .num {
+    font-size: 12px; color: var(--accent); font-weight: 700; letter-spacing: 1px;
+  }
+  .card h3 { font-size: 19px; margin: 8px 0 6px; }
+  .card p { color: var(--muted); font-size: 14px; }
+
+  /* 反问区 */
+  .questions { display: flex; flex-direction: column; gap: 18px; }
+  .q-block {
+    background: linear-gradient(135deg, rgba(56,217,200,.08), rgba(108,140,255,.08));
+    border: 1px solid var(--line); border-left: 4px solid var(--accent);
+    border-radius: 12px; padding: 22px 26px;
+  }
+  .q-block .q-text { font-size: 20px; font-weight: 600; }
+  .q-block .a-text { color: var(--muted); margin-top: 8px; font-size: 15px; }
+
+  /* 技术栈流 */
+  .flow {
+    display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+    gap: 10px; font-size: 14px;
+  }
+  .flow .node {
+    background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+    padding: 10px 16px; font-weight: 600;
+  }
+  .flow .arrow { color: var(--accent); font-size: 18px; }
+  .flow .node.hl { border-color: var(--accent); color: var(--accent); }
+
+  /* 结尾 CTA */
+  .finale { text-align: center; }
+  .finale h2 { font-size: clamp(24px, 4vw, 38px); font-weight: 800; }
+  .finale p { color: var(--muted); margin-top: 16px; }
+  .finale .btn { margin-top: 28px; }
+
+  footer {
+    border-top: 1px solid var(--line); padding: 30px 24px; text-align: center;
+    color: var(--muted); font-size: 13px;
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">开发之旅 <span>· Journey</span></div>
+  <div class="nav-links">
+    <a href="#map">旅程地图</a>
+    <a href="#why">为什么</a>
+    <a href="#stack">技术栈</a>
+    <a href="#go">开始</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero container">
+  <div class="badge">Python · Backend · AI · GeoAI</div>
+  <h1>从 <span class="grad-text">Python</span> 到 <span class="grad-text">GeoAI 工程师</span></h1>
+  <p class="q">会调 API，就算会开发了吗？<br>当 AI 时代来临，你甘心只做一个<em>「会用库」</em>的人吗？</p>
+  <div class="cta"><a class="btn" href="#go">现在，开始你的开发之旅 →</a></div>
+</header>
+
+<!-- 旅程地图 -->
+<section id="map">
+  <div class="container">
+    <div class="sec-title">
+      <div class="kicker">The Roadmap</div>
+      <h2>11 个主题，一条完整技术链</h2>
+      <p class="sub">不是碎片化的「学框架」，而是一条能独立构建系统的路。</p>
+    </div>
+    <div class="roadmap">
+      <div class="card"><div class="num">01</div><h3>Python 运行机制</h3><p>代码是怎么被执行的？字节码、引用计数、GIL。</p></div>
+      <div class="card"><div class="num">02</div><h3>面向对象深入</h3><p>魔术方法、__new__、__call__、上下文管理器。</p></div>
+      <div class="card"><div class="num">03</div><h3>Python 高级特性</h3><p>装饰器、生成器、迭代器、类型系统。</p></div>
+      <div class="card"><div class="num">04</div><h3>SQL + PostgreSQL</h3><p>JOIN、索引、事务、MVCC、PostGIS。</p></div>
+      <div class="card"><div class="num">05</div><h3>asyncio</h3><p>协程、事件循环、Task、并发 vs 并行。</p></div>
+      <div class="card"><div class="num">06</div><h3>FastAPI 源码</h3><p>请求链、APIRoute、Depends、Pydantic。</p></div>
+      <div class="card"><div class="num">07</div><h3>Docker</h3><p>镜像、容器、Compose，一条命令部署整个系统。</p></div>
+      <div class="card"><div class="num">08</div><h3>Redis</h3><p>缓存、TTL、限流、分布式锁。</p></div>
+      <div class="card"><div class="num">09</div><h3>Linux</h3><p>SSH、systemctl、日志、排错。</p></div>
+      <div class="card"><div class="num">10</div><h3>GIS AI 工程能力</h3><p>PostGIS、RAG、Agent、MCP、多模态。</p></div>
+      <div class="card"><div class="num">11</div><h3>研究与工业级 GeoAI</h3><p>系统设计、模型部署、GIS Agent。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 为什么 -->
+<section id="why">
+  <div class="container">
+    <div class="sec-title">
+      <div class="kicker">Why This Path</div>
+      <h2>你真的「学会」了吗？</h2>
+    </div>
+    <div class="questions">
+      <div class="q-block">
+        <div class="q-text">背会了装饰器，却看不懂 FastAPI 为什么能高并发——这算学会了吗？</div>
+        <div class="a-text">会调库 ≠ 懂原理。理解它为什么这样设计，才是真正的掌握。</div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">写得出 SELECT，却看不懂执行计划——这算会 SQL 了吗？</div>
+        <div class="a-text">会写查询 ≠ 会优化。看得懂 EXPLAIN，才敢说自己懂数据库。</div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">docker compose up 一键启动，你不好奇它背后发生了什么吗？</div>
+        <div class="a-text">会部署 ≠ 会工程化。理解容器、网络、数据卷，才能独立排错。</div>
+      </div>
+      <div class="q-block">
+        <div class="q-text">同样是学编程，为什么有人三年还在入门，有人一年就能独立构建系统？</div>
+        <div class="a-text">区别真的只是天赋吗？不，是路线——是一条能串起来的完整技术链。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 技术栈 -->
+<section id="stack">
+  <div class="container">
+    <div class="sec-title">
+      <div class="kicker">The Stack</div>
+      <h2>一条能串起来的技术链</h2>
+      <p class="sub">每一步，都为下一步铺路。</p>
+    </div>
+    <div class="flow">
+      <div class="node">Python</div><div class="arrow">→</div>
+      <div class="node">asyncio</div><div class="arrow">→</div>
+      <div class="node">SQL / PostgreSQL</div><div class="arrow">→</div>
+      <div class="node">FastAPI</div><div class="arrow">→</div>
+      <div class="node">Docker</div><div class="arrow">→</div>
+      <div class="node">Redis</div><div class="arrow">→</div>
+      <div class="node">Linux</div><div class="arrow">→</div>
+      <div class="node hl">GeoAI Agent</div>
+    </div>
+  </div>
+</section>
+
+<!-- 最终形态 -->
+<section id="go">
+  <div class="container finale">
+    <div class="sec-title">
+      <div class="kicker">The Endgame</div>
+      <h2>从「会调用」到「懂原理」</h2>
+    </div>
+    <p>从「Python 调一个大模型 API」，到「自然语言指挥 GIS 完成空间分析」——<br>中间差的，是什么？</p>
+    <p style="margin-top:12px;">差的，是<strong style="color:var(--accent)">理解</strong>，是<strong style="color:var(--accent)">系统</strong>，是<strong style="color:var(--accent)">工程能力</strong>。</p>
+    <p style="margin-top:20px; font-size:20px;">准备好，把「会调用」变成「懂原理」了吗？</p>
+    <a class="btn" href="https://github.com/lyxsdw123123/The-journey-of-development" target="_blank" rel="noopener">查看仓库 · 开始你的开发之旅 →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    开发之旅 · The Journey of Development — 用 AI 辅助系统化学习，把知识沉淀成作品。
+  </div>
+</footer>
+
+</body>
+</html>
